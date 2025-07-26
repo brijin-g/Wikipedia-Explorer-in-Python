@@ -1,0 +1,30 @@
+import wikipedia
+import tkinter as tk
+def search_wikipedia():
+    # Get the search term from the entry widget
+    search_term = entry.get()    
+    try:
+        # Search for the Wikipedia page and get its summary
+        summary = wikipedia.summary(search_term)
+        # Display the summary in the text widget
+        text.delete('1.0', tk.END)
+        text.insert(tk.END, summary)
+    except wikipedia.exceptions.PageError:
+        # Display an error message if the page doesn't exist
+        text.delete('1.0', tk.END)
+        text.insert(tk.END, "Page not found.")
+# Create the GUI
+root = tk.Tk()
+root.title("Wikipedia Explorer")
+# Create the search label and entry widget
+search_label = tk.Label(root, text="Search for a Wikipedia page:")
+search_label.pack()
+entry = tk.Entry(root)
+entry.pack()
+# Create the search button and bind it to the search_wikipedia function
+search_button = tk.Button(root, text="Search", command=search_wikipedia)
+search_button.pack()
+# Create the text widget to display the Wikipedia summary
+text = tk.Text(root)
+text.pack()
+root.mainloop()
